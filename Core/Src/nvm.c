@@ -5,6 +5,7 @@
  *      Author: kangc
  */
 #include "main.h"
+#include "string.h"
 
 #define FLASH_USER_START_ADDR (ADDR_FLASH_PAGE_15)
 
@@ -58,7 +59,11 @@ static void nvm_flush(void)
 
   while (Address < FLASH_USER_START_ADDR + FLASH_PAGE_SIZE) //one page 2K
   {
-    if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, Address, (uint64_t)ram_buffer[index]) == HAL_OK)
+    uint64_t data;
+
+    memcpy(&data, &ram_buffer[index], 8);
+
+    if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, Address, data) == HAL_OK)
     {
       Address = Address + 8;  /* increment to next double word*/
       index = index + 8;
