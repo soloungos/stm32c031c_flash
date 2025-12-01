@@ -92,6 +92,13 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    /* -------------------------------------------------------------------------------- */
+    if (DALI_TimerStatus()) // must be checked at least each 1ms
+    {
+      DALI_CheckAndExecuteTimer();
+    }
+    /* -------------------------------------------------------------------------------- */
+    DALI_CheckAndExecuteReceivedCommand();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
